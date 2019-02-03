@@ -1,15 +1,16 @@
 import * as React from "react";
-import { GameState, CellState } from "../../types";
-import { GridOuterContainer, GridRow } from "./styled";
-import reducer from "./reducer";
 import { useReducer } from "react";
+import { cellClick } from "../../actions";
+import { CellState, GameState } from "../../types";
 import Cell from "../Cell";
+import reducer from "./reducer";
+import { GridOuterContainer, GridRow } from "./styled";
 
 const MAX_ROWS = 3;
 const MAX_COLS = 3;
 
 const createCells = (): CellState[][] => {
-  let cells: CellState[][] = [];
+  const cells: CellState[][] = [];
   for (let i = 0; i < MAX_ROWS; i++) {
     const row = [];
     for (let j = 0; j < MAX_COLS; j++) {
@@ -33,11 +34,16 @@ const initialState: GameState = {
 
 const Grid: React.FunctionComponent = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { cells } = state;
+  const { cells, currentPlayer } = state;
 
-  const grid = cells.map(row => {
-    const items = row.map(item => {
-      return <Cell />;
+  const grid = cells.map(cellRow => {
+    const items = cellRow.map(item => {
+      const { column, row } = item;
+      return (
+        <Cell
+          onClick={() => dispatch(cellClick({ currentPlayer, column, row }))}
+        />
+      );
     });
     return (
       <>
