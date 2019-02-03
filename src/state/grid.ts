@@ -96,9 +96,15 @@ export const computeNewGameState = (
   });
 
   const gameOver: boolean = isGameOver(newCells, row, column, player);
+
+  let currentPlayer = player === 0 ? 1 : 0;
+  if (gameOver) {
+    currentPlayer = player;
+  }
+
   return {
     cells: newCells,
-    currentPlayer: player === 0 ? 1 : 0,
+    currentPlayer,
     isGameOver: gameOver
   };
 };
