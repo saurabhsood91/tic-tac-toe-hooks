@@ -17,7 +17,6 @@ const reducer = (state: GameState, action: AllActions): GameState => {
         column,
         currentPlayer
       );
-      console.log("STATE", newGameState, action);
       return newGameState;
     }
   }

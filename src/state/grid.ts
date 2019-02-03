@@ -89,8 +89,6 @@ export const computeNewGameState = (
     isEmpty: false
   };
 
-  console.log("NEW CELL", newCell);
-
   const newCells: CellState[][] = Object.assign([...cells], {
     [row]: Object.assign([...cells[row]], {
       [column]: newCell
