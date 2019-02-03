@@ -6,3 +6,7 @@ export const CellBody = styled.div`
   background-color: "#9b9393";
   border: 1px solid black;
 `;
+
+export const OccupiedCell = styled.div`
+  text-align: center;
+`;

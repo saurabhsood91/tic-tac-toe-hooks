@@ -2,5 +2,6 @@
   "editor.formatOnSave": true,
   "editor.tabSize": 2,
   "prettier.tslintIntegration": true,
-  "tslint.autoFixOnSave": true
+  "tslint.autoFixOnSave": true,
+  "editor.wordWrap": "on"
 }

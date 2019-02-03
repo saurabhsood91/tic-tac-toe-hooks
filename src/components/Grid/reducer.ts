@@ -3,16 +3,22 @@ import { cellClick } from "../../actions";
 import { GameState } from "../../types";
 
 import * as allActions from "../../actions";
+import { computeNewGameState } from "../../state/grid";
 
 export type AllActions = ActionType<typeof allActions>;
 
 const reducer = (state: GameState, action: AllActions): GameState => {
   switch (action.type) {
     case getType(cellClick): {
-      return {
-        ...state,
-        currentPlayer: action.payload.currentPlayer === 0 ? 1 : 0
-      };
+      const { row, column, currentPlayer } = action.payload;
+      const newGameState = computeNewGameState(
+        state,
+        row,
+        column,
+        currentPlayer
+      );
+      console.log("STATE", newGameState, action);
+      return newGameState;
     }
   }
   return state;

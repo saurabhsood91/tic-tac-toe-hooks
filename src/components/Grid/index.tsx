@@ -3,8 +3,9 @@ import { useReducer } from "react";
 import { cellClick } from "../../actions";
 import { CellState, GameState } from "../../types";
 import Cell from "../Cell";
+import Status from "../Status";
 import reducer from "./reducer";
-import { GridOuterContainer, GridRow } from "./styled";
+import { GridOuterContainer, GridRow, Wrapper } from "./styled";
 
 const MAX_ROWS = 3;
 const MAX_COLS = 3;
@@ -34,14 +35,17 @@ const initialState: GameState = {
 
 const Grid: React.FunctionComponent = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { cells, currentPlayer } = state;
+  const { cells, currentPlayer, isGameOver } = state;
 
   const grid = cells.map(cellRow => {
     const items = cellRow.map(item => {
       const { column, row } = item;
+      const { isEmpty, playerNumber } = cells[row][column];
       return (
         <Cell
+          playerNumber={playerNumber}
           onClick={() => dispatch(cellClick({ currentPlayer, column, row }))}
+          isEmpty={isEmpty}
         />
       );
     });
@@ -52,7 +56,12 @@ const Grid: React.FunctionComponent = () => {
     );
   });
 
-  return <GridOuterContainer>{grid}</GridOuterContainer>;
+  return (
+    <Wrapper>
+      <GridOuterContainer>{grid}</GridOuterContainer>
+      <Status currentPlayer={currentPlayer} isGameOver={isGameOver} />
+    </Wrapper>
+  );
 };
 
 export default Grid;

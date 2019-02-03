@@ -4,8 +4,6 @@ export interface GameState {
   isGameOver: boolean;
 }
 
-export interface CellRows {}
-
 export interface CellState {
   row: number;
   column: number;
